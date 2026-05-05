@@ -288,7 +288,9 @@ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle))
 
-app.job_queue.run_repeating(daily_checker, interval=60, first=10)
+# ✅ FIXED JOBQUEUE ISSUE
+job_queue = app.job_queue
+job_queue.run_repeating(daily_checker, interval=60, first=10)
 
 print("Bot running...")
 app.run_polling()
